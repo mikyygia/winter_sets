@@ -26,9 +26,28 @@ class MultipleSequence:
             return element
 
     def __getitem__(self, index):
-        return self.sequence[index]
+        # Sequence = multiplier * index
+        if type(index) == int:
+            return self.multiplier * index
 
+        elif type(index) == slice:
+            start = 0 if not index.start else index.start
+            stop = self.length if not index.stop else index.stop
+            step = 1 if not index.step else index.step
+
+            if stop > self.length:
+                raise IndexError
+
+            return tuple(self.multiplier * i for i in range(start, stop, step))
+
+
+# TODO
+# 1. indexing a negative number
 
 a = MultipleSequence(5, 3)
 print(a)
-print(a[3])
+
+print(a[:-1])
+
+
+# print(a[1:5:2])
