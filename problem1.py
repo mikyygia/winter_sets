@@ -7,8 +7,10 @@ class MultipleSequence:
         else:
             self.multiplier = 1
 
+        self.sequence = tuple(self)
+
     def __str__(self):
-        return f'{tuple(self)}'
+        return f'{self.sequence}'
 
     def __iter__(self):
         self.curr = 0
@@ -23,6 +25,10 @@ class MultipleSequence:
             self.curr += 1
             return element
 
+    def __getitem__(self, index):
+        return self.sequence[index]
+
 
 a = MultipleSequence(5, 3)
 print(a)
+print(a[3])
