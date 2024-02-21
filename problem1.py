@@ -7,7 +7,14 @@ class MultipleSequence:
         else:
             self.multiplier = 1
 
-        self.sequence = tuple(self)
+        self.sequence = tuple(
+            range(0, self.length * self.multiplier, self.multiplier))
+
+    def __len__(self):
+        return self.length
+
+    def __bool__(self):
+        return len(self.sequence) >= 1
 
     def __str__(self):
         return f'{self.sequence}'
@@ -21,12 +28,11 @@ class MultipleSequence:
             raise StopIteration
 
         else:
-            element = self.curr * self.multiplier
+            element = self.sequence[self.curr]
             self.curr += 1
             return element
 
     def __getitem__(self, index):
-        # Sequence = multiplier * index
         if type(index) == int:
             return self.multiplier * index
 
@@ -44,7 +50,12 @@ class MultipleSequence:
             elif start < 0:
                 start = self.length + start
 
-            return tuple(self.multiplier * i for i in range(start, stop, step))
+            yield tuple(self.multiplier * i for i in range(start, stop, step))
 
 
 a = MultipleSequence(5, 3)
+print(a)
+
+
+for x in a:
+    print(x)
