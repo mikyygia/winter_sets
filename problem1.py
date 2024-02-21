@@ -38,16 +38,13 @@ class MultipleSequence:
             if stop > self.length:
                 raise IndexError
 
+            if stop < 0:
+                stop = self.length + stop
+
+            elif start < 0:
+                start = self.length + start
+
             return tuple(self.multiplier * i for i in range(start, stop, step))
 
 
-# TODO
-# 1. indexing a negative number
-
 a = MultipleSequence(5, 3)
-print(a)
-
-print(a[:-1])
-
-
-# print(a[1:5:2])
