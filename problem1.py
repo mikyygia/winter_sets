@@ -51,11 +51,3 @@ class MultipleSequence:
                 start = self.length + start
 
             yield tuple(self.multiplier * i for i in range(start, stop, step))
-
-
-a = MultipleSequence(5, 3)
-print(a)
-
-
-for x in a:
-    print(x)
