@@ -3,20 +3,29 @@ class Collection:
         self._values = values
 
     def __eq__(self, other) -> bool:
-        if type(other) is Collection:
+        try:
+            if not isinstance(other, Collection):
+                return False
+
+            if len(self._values) != len(other._values):
+                return False
+
+            # Determining whether a Collection of n elements is equivalent to a Collection of m
             for x in range(min(len(self._values), len(other._values))):
                 if self._values[x] != other._values[x]:
                     return False
 
-            return len(self._values) == len(other._values)
+        except Exception as msg:
+            raise Exception(msg)
 
-        return False
+        return True
 
+    def __lt__(self, other):
+        if not isinstance(other, Collection):
+            return TypeError("Can't compare non-collection types")
 
-set1 = (0, 3, 6, 9, 12)
-a = Collection(set1)
+        try:
+            return list(self._values) < list(other._values)
 
-set2 = [0, 3, 6, 9, 12]
-b = Collection(set2)
-
-print(a == b)
+        except Exception as msg:
+            raise Exception(msg)
